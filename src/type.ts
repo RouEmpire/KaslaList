@@ -1,9 +1,9 @@
 class TodoItem {
   title: string;
-  description: string | null;
+  description: string|null;
   beginDate: Date;
-  finishDate: Date | null;
-  private prereq: number | null;
+  finishDate: Date|null;
+  private prereq: number|null;
   isFinish: boolean;
 
   constructor(title: string, beginDate: Date);
@@ -16,20 +16,18 @@ class TodoItem {
     this.prereq = null;
     this.isFinish = false;
   }
-  get SQLiteInsert():string {
-    let result:string = "";
+  get SQLiteInsert(): string {
+    let result: string = "";
     result += "(";
     result += `'${this.title}', `;
     result += this.beginDate.getTime() + ", ";
     result += this.isFinish ? 1 : 0 + ", ";
     result += this.prereq ? this.prereq : "-1";
-    result += this.description  ? `, '${this.description}'` : ""
+    result += this.description ? `, '${this.description}'` : ""
     result += ")"
     return result;
   }
-  get beginDateNum() {
-    return this.beginDate.getTime();
-  }
+  get beginDateNum() { return this.beginDate.getTime(); }
   get finishDateNum() {
     if (this.finishDate === null) {
       return 0;
@@ -42,13 +40,11 @@ class TodoItem {
     }
     return this.prereq;
   }
-  set Finish(isFinish:boolean) {
-    this.isFinish = isFinish;
-  }
-  set Prereq(prereqID:number|null) {
+  set Finish(isFinish: boolean) { this.isFinish = isFinish; }
+  set Prereq(prereqID: number|null) {
     if (prereqID == null) {
       this.prereq = -1;
-    } else if (Number.isInteger( prereqID)) {
+    } else if (Number.isInteger(prereqID)) {
       this.prereq = prereqID;
     } else {
       console.error("Pre-requisite ID must be integer")
@@ -56,15 +52,13 @@ class TodoItem {
   }
   get itemAsObject() {
     return {
-      title: this.title,
-      description: this.description,
-      beginDate: this.beginDateNum,
-      finishDate: this.finishDateNum === 0 ? null : this.finishDateNum,
-      prereq: this.prereqNum === 0 ? null : this.prereqNum,
-      isFinish: this.isFinish
+      title: this.title, description: this.description,
+          beginDate: this.beginDateNum,
+          finishDate: this.finishDateNum === 0 ? null : this.finishDateNum,
+          prereq: this.prereqNum === 0 ? null : this.prereqNum,
+          isFinish: this.isFinish
     }
   }
-
 }
 
 export default TodoItem;

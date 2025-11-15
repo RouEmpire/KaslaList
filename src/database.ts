@@ -1,6 +1,6 @@
-import { Database } from "bun:sqlite";
+import {Database} from "bun:sqlite";
 
-const db = new Database("todo_db.sqlite", { create: true, strict: true });
+const db = new Database("todo_db.sqlite", {create : true, strict : true});
 const create_database = db.query(`
   CREATE TABLE IF NOT EXISTS todolist (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -10,8 +10,7 @@ const create_database = db.query(`
     finishDate INTEGER DEFAULT 0,
     prereq INTEGER DEFAULT 0,
     isFinish INTEGER DEFAULT 0
-  )`
-);
+  )`);
 create_database.run();
 
 const insertItemQuery = {
@@ -30,20 +29,22 @@ const insertItemQuery = {
 }
 
 function insertItem(itemTitle: string, itemDescription: string): void;
-function insertItem(itemTitle: string, itemDescription: string, itemPrereq: Number): void;
-function insertItem(itemTitle: string, itemDescription: string, itemPrereq?: Number): void {
+function insertItem(itemTitle: string, itemDescription: string,
+                    itemPrereq: Number): void;
+function insertItem(itemTitle: string, itemDescription: string,
+                    itemPrereq?: Number): void {
   if (itemPrereq) {
     insertItemQuery.minimalAndPrereq.run({
-      title: itemTitle,
-      description: itemDescription,
-      beginDate: new Date().getTime(),
-      prereq: itemPrereq.valueOf(),
+      title : itemTitle,
+      description : itemDescription,
+      beginDate : new Date().getTime(),
+      prereq : itemPrereq.valueOf(),
     })
   } else {
     insertItemQuery.minimal.run({
-      title: itemTitle,
-      description: itemDescription,
-      beginDate: new Date().getTime()
+      title : itemTitle,
+      description : itemDescription,
+      beginDate : new Date().getTime()
     })
   }
 }
