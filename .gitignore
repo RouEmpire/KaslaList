@@ -180,3 +180,4 @@ yarn-error.log*
 **/*.log
 package-lock.json
 **/*.bun
+todo_db.sqlite
